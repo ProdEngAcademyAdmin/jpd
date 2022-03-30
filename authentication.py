@@ -17,13 +17,13 @@ user=auth_data["user"]
 password=auth_data["password"]
 
 
-def login(server,context,username,password,timeout_sec=0):
-    options =  {'username': username, 'scope': 'member-of-groups:*', 'expires_in': timeout_sec}
+def login(server,username,password,token_expiration_time=0):
+    options = {'username': username, 'scope': 'member-of-groups:*', 'expires_in': token_expiration_time}
     encoded_options = urlencode(options)
     headers_dict = urllib3.make_headers(basic_auth=f"{username}:{password}")
     headers_dict['Content-Type'] = 'application/x-www-form-urlencoded'
-    URL=f"https://{server}/{context}/api/security/token?{encoded_options}"
-    resp = HTTP.request('POST',URL,headers=headers_dict)
+    url = f"https://{server}/artifactory/api/security/token?{encoded_options}"
+    resp = HTTP.request('POST', url , headers=headers_dict)
     if resp.status == 200:
         print("Success generating token")
         output = json.loads(resp.data.decode('utf-8'))
@@ -32,6 +32,6 @@ def login(server,context,username,password,timeout_sec=0):
         sys.exit(f"ERROR retriving token from server\n{resp.data.decode('utf-8')}")
 
 
-token=login(base_url,"artifactory",user,password)
-encoded = jwt.encode({"some": "payload"}, token, algorithm="RS256")
-print(encoded)
+token=login(base_url,user,password)
+#encoded = jwt.encode({"some": "payload"}, token, algorithm="RS256")
+print(token)
