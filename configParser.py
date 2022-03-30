@@ -9,7 +9,7 @@ class ConfigParser():
         try:
             parsed_yaml=yaml.safe_load(file)
         except yaml.YAMLError as exc:
-            print(exc)
+            print(exc) #raise
 
     #@property
     def get_data(self, key):
