@@ -1,0 +1,8 @@
+# An example YAML file
+
+Artifactory:
+      base_url: https://localhost.jfrog.io/
+      credentials: 
+        user: ''
+        password: ''
+        token: ''
