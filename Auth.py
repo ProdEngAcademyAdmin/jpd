@@ -35,30 +35,23 @@
 
 # print(r.text)
 #from urllib import response
-from distutils.command.config import config
-from lib2to3.pgen2 import token
-from tkinter import W
+
 import requests
 import json
 
 header = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-data = 'username=adirgali2@gmail.com&scope=member-of-groups:administrators'
+data = 'username=,&scope=member-of-groups:administrators'
 
-auth ='adirgali2@gmail.com' , 'P@P@9ol.poi'
+auth =','
 
-r = requests.post('https://galipapa.jfrog.io/artifactory/api/security/token', headers=header, data=data, auth=auth)
-
-
-
+response = requests.post('https://galipapa.jfrog.io/artifactory/api/security/token', headers=header, data=data, auth=auth).json()
 
 
 f = open("config.txt", "w")
 
-f.write(r)
+f.write(response['access_token'])
 f.close()
 
 
-# r.json()
 
-# print(r.text)
