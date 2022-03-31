@@ -3,7 +3,7 @@ import urllib3
 from urllib.parse import urlencode #For splitting a URL string into its components
 import sys
 import json
-import jwt
+from cryptography.fernet import Fernet
 
 
 
@@ -33,5 +33,14 @@ def login(server,username,password,token_expiration_time=0):
 
 
 token=login(base_url,user,password)
-#encoded = jwt.encode({"some": "payload"}, token, algorithm="RS256")
-print(token)
+
+key = Fernet.generate_key()
+
+encryption_type = Fernet(key)
+
+token_encoded = bytes(token,'UTF-8')
+
+encrypted_token = encryption_type.encrypt(token_encoded)
+
+print(encrypted_token)
+
