@@ -1,18 +1,21 @@
-import RESTclient
 from configParser import ConfigParser
-from RESTclient import RESTClient
-from Auth import Auth
+from RESTClient import RESTClient
+import json
 
-class artifactory:
+class Artifactory:
 
     def __init__(self):
-
         self.artifactory_data= ConfigParser(file_name='config.yaml',app='artifactory').get_data()
 
 
     def ping(self):
+        """
+        input: client
 
-        api_path ="artifactory/api/system/ping"
+        :return: response from JPD, Get a simple status response about the state of Artifactory
+                Returns 200 code with an 'OK' text if Artifactory is working properly, if not will return an HTTP error code with a reason.
+        """
+        api_path = "artifactory/api/system/ping"
         resp = RESTClient(api_path=api_path,http_method="GET").api_call()
         if resp.status_code <= 201:
             print("Ping Is OK")
@@ -20,22 +23,34 @@ class artifactory:
             print("Ping is not good")
 
 
-    def storage_info(self):
 
-        api_path ="artifactory/api/storageinfo"
-        resp = RESTClient(api_path=api_path,http_method="GET").api_call().json()
-        print(resp)
+    def storage_info(self):
+        """
+        inputs: client
+
+        :return: response from JPD , Returns storage summary information regarding binaries, file store and repositories.
+        """
+        api_path = "artifactory/api/storageinfo"
+        resp = RESTClient(api_path=api_path,http_method="GET").api_call()
+        print(resp.text)
 
     def create_repo(self):
+        """
+        :input: client and the data about the repos
 
-        data_dict=self.artifactory_data["new_repositories"]
-        for repo in data_dict:
-            resp = RESTclient.send_api_request("/api/repositories/"+"karam","PUT",repo)
-            print(repo)
-        if resp.data == b'OK':
-            print(f"Response from  {(resp.data.decode('utf-8'))}")
-        else:
-            print(f"Error from server \n{(resp.data.decode('utf-8'))}")
+        :return: Creates a new repository in Artifactory with the provided configuration.
+         Supported by local, remote, virtual and federated repositories.
+        """
+        repositories_list = self.artifactory_data["new_repositories"]
+        for repository_data_block in repositories_list:
+            repo_data=(next(iter(repository_data_block.values())))
+            key = repo_data["key"]
+            api_path = f"artifactory/api/repositories/{key}"
+            repo_json = json.dumps(repo_data).encode('utf-8')
+            resp = RESTClient(api_path=api_path, http_method="PUT", data=repo_json).api_call()
+            print(resp.text)
+
 if __name__ == '__main__':
-    arti = artifactory().storage_info()
+    arti = Artifactory().create_repo()
+
 
