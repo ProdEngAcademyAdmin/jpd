@@ -2,6 +2,7 @@
 import requests, json
 from configParser import ConfigParser
 from Auth import Auth
+from RESTClient import RESTClient
 
 class Pipeline:
 
@@ -11,21 +12,20 @@ class Pipeline:
         # self.integrations = data['integrations']
 
     def create_inegrations(self):     
-        method = 'POST'
-        api_path = 'api/v1/projectIntegrations'
+        http_method = 'POST'
+        api_path = 'pipeline/api/v1/projectIntegrations'
         self.integrations = self.data['integrations']
         for integration in self.integrations:
             payload = json.load(integration['masterIntegrationName']) 
-
-            #     print(integration['formJSONValues'])
-            # elif integration['masterIntegrationName'] == 'github':
-            #     pass
-
+            response = RESTClient().api_call(http_method, api_path, payload)
 
     def create_pipeline_source(self):
-        method = 'post' 
-        api_path = 'api/v1/pipelinesources'
-        payload = {}
+        http_method = 'POST' 
+        api_path = 'pipeline/api/v1/pipelinesources'
+        self.source = self.data['source']
+        for integration in self.integrations:
+            payload = json.load(integration['masterIntegrationName']) 
+            response = RESTClient().api_call(http_method, api_path, payload)
 
     def trigger_pipeline():
         pass
