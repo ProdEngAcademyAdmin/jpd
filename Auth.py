@@ -1,17 +1,17 @@
 # import requests
 
-# username = 'adirgali2@gmail.com'
-# password = 'P@P@9ol.poi'
+# username = ','
+# password = ','
 
-# #r = requests.post('https://galipapa.jfrog.io/artifactory/api/security/token',data='username= adirgali2@gmail.com&password= P@P@9ol.poi')
+# #r = requests.post('https://galipapa.jfrog.io/artifactory/api/security/token',data='username= ,&password= ,')
 
-# #r = requests.post("https://galipapa.jfrog.io/artifactory/api/security/token",data={'username': 'adirgali2@gmail.com', 'password': 'P@P@9ol.poi'})
+# #r = requests.post("https://galipapa.jfrog.io/artifactory/api/security/token",data={'username': ',', 'password': ','})
 
 # #curl -s -XPOST -u $username:$password https://galipapa.jfrog.io/artifactory/api/security/token -d "username=$username" -d "scope=member-of-groups:administrators"
 
 # data = {
-#     'j_username': 'adirgali2@gmail.com',
-#     'j_password': 'P@P@9ol.poi'
+#     'j_username': ',',
+#     'j_password': ','
 # }
 
 # response = requests.post(
@@ -31,7 +31,7 @@
 # import requests
 # from requests.auth import HTTPBasicAuth
 
-# r = requests.post('https://galipapa.jfrog.io/artifactory/api/security/token', auth=HTTPBasicAuth('adirgali2@gmail.com', 'P@P@9ol.poi'))
+# r = requests.post('https://galipapa.jfrog.io/artifactory/api/security/token', auth=HTTPBasicAuth(',', ','))
 
 # print(r.text)
 #from urllib import response
