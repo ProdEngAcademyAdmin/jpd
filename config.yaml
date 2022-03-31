@@ -46,16 +46,16 @@ xray:
 
 pipeline:
   source:
-    projectId": 1,  
-    projectIntegrationId": 66,
-    repositoryFullName": "myrepo/docker-sample"
+    projectId: 1  
+    projectIntegrationId: 1
+    repositoryFullName": "https://github.com/Ransela17/pipelines_config"
     branch": "master"
     fileFilter": "pipelines.yml"
 
   integrations:
     - Name: 'MyGithub'
-      projectId: ''
-      masterIntegrationId": 20
+      projectId: 1
+      masterIntegrationId: 20
       masterIntegrationName: github 
       formJSONValues: 
               - label: 'gittoken'
@@ -67,16 +67,16 @@ pipeline:
               allowAllPipelineSources: true
 
     - Name: 'MyArtifactory'
-      projectId: ''
+      projectId: 1
       masterIntegrationId: 98
       masterIntegrationName: artifactory 
       formJSONValues:      
         - label": apikey
           value": ''
         - label: url
-          value: ''
+          value: 'https://pe16366karamj.jfrog.io/artifactory'
         - label: user
-          value: ''
+          value: 'user@somecompany.com'
       permissions:
           pipelineSources:
               allowAllPipelineSources: true

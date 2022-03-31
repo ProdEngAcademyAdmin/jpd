@@ -1,20 +1,26 @@
 #from RESTClinet import RestClient
-import requests
+import requests, json
 from configParser import ConfigParser
 from Auth import Auth
 
 class Pipeline:
+
     def __init__(self):
-        data = ConfigParser('config.yaml','pipeline').get_data()
-        self.integrations = data['integrations']
+        self.data = ConfigParser('config.yaml','pipeline').get_data()
+        # self.integrations = data['integrations']
+        # self.integrations = data['integrations']
 
     def create_inegrations(self):     
-        method = 'post'
-        api_path = ''
+        method = 'POST'
+        api_path = 'api/v1/projectIntegrations'
+        self.integrations = self.data['integrations']
+        for integration in self.integrations:
+            payload = json.load(integration['masterIntegrationName']) 
 
-        for inter in self.integrations:
-            if inter['masterIntegrationName'] == 'artifactory':
-                pass
+            #     print(integration['formJSONValues'])
+            # elif integration['masterIntegrationName'] == 'github':
+            #     pass
+
 
     def create_pipeline_source(self):
         method = 'post' 
