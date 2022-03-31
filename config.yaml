@@ -58,8 +58,8 @@ pipeline:
       masterIntegrationId": 20
       masterIntegrationName: github 
       formJSONValues: 
-              - label: 'token'
-                value: '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'
+              - label: 'gittoken'
+                value: ''
               - label: 'url'
                 value: "https://api.github.com"
       permissions:
