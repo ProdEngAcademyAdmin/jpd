@@ -16,7 +16,7 @@ class RESTClient:
         self.token = Auth().get_token()
         self.api_path = api_path
         self.headers = {'Content-Type': 'application/json',
-                        'authentication': f"{self.token}"}
+                        'Authorization': f"Bearer {self.token}"}
         self.data = data
         self.http_method = http_method
 
