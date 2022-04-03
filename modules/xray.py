@@ -1,13 +1,17 @@
 from configParser import ConfigParser
 from RESTClient import RESTClient
 import json
+import click
+import os
 
 
 class Xray:
 
     def __init__(self):
-        self.xray_data = ConfigParser(file_name='config.yaml', app='xray').get_data()
+        self.app_name = os.path.basename(__file__).split('.')[0].lower()
+        self.xray_data = ConfigParser(file_name='config.yaml', app=self.app_name).get_data()
 
+    @click.command()
     def create_policy(self):
         """
         :input: client and the data about the policies
@@ -20,8 +24,9 @@ class Xray:
             policy_data = (next(iter(policy_data_block.values())))
             repo_json = json.dumps(policy_data)
             resp = RESTClient(api_path=api_path, http_method="POST", data=repo_json).api_call()
-            print(resp.text)
+            click.echo(resp.text)
 
+    @click.command()
     def create_watch(self):
         """
         :input: client and the data about the watches
@@ -34,5 +39,6 @@ class Xray:
             watch_data = (next(iter(watch_data_block.values())))
             repo_json = json.dumps(watch_data)
             resp = RESTClient(api_path=api_path, http_method="POST", data=repo_json).api_call()
-            print(resp.text)
+            click.echo(resp.text)
+
 
