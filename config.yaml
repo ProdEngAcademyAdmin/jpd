@@ -1,7 +1,7 @@
 authentication:
-  user: user@somecompany.com
-  password: TryThisOne
-  url: "pe16366karamj.jfrog.io"
+  user: karamj@jfrog.com
+  password: hahahaha
+  url: pe16366karamj.jfrog.io
 
 artifactory:
   new_repositories:
@@ -17,29 +17,62 @@ artifactory:
 xray:
   policies:
     - policy1:
-        name: PypiSecurityPolicy
+        name: karam_policy
+        description: This is a security policy
         type: security
-        description: "Security policy for all PyPi packages"
         rules:
-            name: securityRule
-            priority: 1
+          - name: sec_rule
             criteria:
-              min_severity: High
+              min_severity: medium
+            actions:
+              block_download:
+                active: true
+                unscanned: true
+              block_release_bundle_distribution: true
+              fail_build: true
+              notify_deployer: true
+              notify_watch_recipients: true
+            priority: 1
     - policy2:
         name: DockerSecurityPolicy
         type: security
         description: "Security policy for all docker images"
         rules:
-            name: securityRule
-            priority: 1
-            criteria:
-              min_severity: High
+          name: securityRule
+          priority: 1
+          criteria:
+            min_severity: High
+
   watches:
     - watch1:
-      name: PyPi-watch
-      description: "Security watch for all PyPi packages"
-      resources:
-        type: "all-repos"
-        filters:
-          type: "package-type"
-          value: "Docker"
+        general_data:
+          name: vuln-prod
+          description: This is a new watch created using API V2
+          active: true
+        project_resources:
+          resources:
+            - type: repository
+              bin_mgr_id: art-prod-eu
+              name: docker-local-test
+              filters:
+                - type: regex
+                  value: ".*"
+        assigned_policies:
+          - name: karam_policy
+            type: security
+    - watch2 :
+        general_data:
+          name: all-repositories
+          description: This is a new watch created using API V2
+          active: true
+        project_resources:
+          resources:
+            - type: all-repos
+              filters:
+                - type: package-type
+                  value: Docker
+                - type: package-type
+                  value: Debian
+        assigned_policies:
+          - name: karam_policy
+            type: security
