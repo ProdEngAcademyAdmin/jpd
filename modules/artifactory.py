@@ -2,12 +2,14 @@ from configParser import ConfigParser
 from RESTClient import RESTClient
 import json
 import click
+import os
 
 
 class Artifactory:
 
     def __init__(self):
-        self.artifactory_data = ConfigParser(file_name='config.yaml', app='artifactory').get_data()
+        self.app_name = os.path.basename(__file__).split('.')[0].lower()
+        self.artifactory_data = ConfigParser(file_name='config.yaml', app=self.app_name).get_data()
 
     @staticmethod
     @click.command()
