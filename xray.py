@@ -19,25 +19,23 @@ class Xray:
         for policy_data_block in polices_list:
             policy_data = (next(iter(policy_data_block.values())))
             repo_json = json.dumps(policy_data)
-            parsed = json.loads(repo_json)
-            print(json.dumps(parsed, indent=4, sort_keys=False))
             resp = RESTClient(api_path=api_path, http_method="POST", data=repo_json).api_call()
             print(resp.text)
 
     def create_watch(self):
         """
+        :input: client and the data about the watches
 
+        :return: Creates a new watch , with the data that the user had submitted in the file
         """
         watches_list = self.xray_data["watches"]
         api_path = "xray/api/v2/watches"
         for watch_data_block in watches_list:
             watch_data = (next(iter(watch_data_block.values())))
             repo_json = json.dumps(watch_data)
-            parsed = json.loads(repo_json)
-            print(json.dumps(parsed, indent=4, sort_keys=False))
             resp = RESTClient(api_path=api_path, http_method="POST", data=repo_json).api_call()
             print(resp.text)
 
 
+
 if __name__ == '__main__':
-    Xray().create_watch()
