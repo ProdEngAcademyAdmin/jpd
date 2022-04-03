@@ -1,0 +1,86 @@
+authentication:
+  user: user@somecompany.com
+  password: TryThisOne
+  url: "pe16366karamj.jfrog.io"
+
+artifactory:
+  new_repositories:
+    - repo1:
+        key: pypi-local-test
+        packageType: pypi
+        rclass: local
+    - repo2:
+        key: docker-local-test
+        packageType: docker
+        rclass: local
+
+xray:
+  policies:
+    - policy1:
+        name: PypiSecurityPolicy
+        type: security
+        description: "Security policy for all PyPi packages"
+        rules:
+            name: securityRule
+            priority: 1
+            criteria:
+              min_severity: High
+    - policy2:
+        name: DockerSecurityPolicy
+        type: security
+        description: "Security policy for all docker images"
+        rules:
+            name: securityRule
+            priority: 1
+            criteria:
+              min_severity: High
+  watches:
+    - watch1:
+      name: PyPi-watch
+      description: "Security watch for all PyPi packages"
+      resources:
+        type: "all-repos"
+        filters:
+          type: "package-type"
+          value: "Docker"
+
+pipeline:
+  source:
+    projectId": 1,  
+    projectIntegrationId": 66,
+    repositoryFullName": "myrepo/docker-sample"
+    branch": "master"
+    fileFilter": "pipelines.yml"
+
+  integrations:
+    - Name: 'MyGithub'
+      projectId: ''
+      masterIntegrationId": 20
+      masterIntegrationName: github 
+      formJSONValues: 
+              - label: 'gittoken'
+                value: ''
+              - label: 'url'
+                value: "https://api.github.com"
+      permissions:
+          pipelineSources:
+              allowAllPipelineSources: true
+
+    - Name: 'MyArtifactory'
+      projectId: ''
+      masterIntegrationId: 98
+      masterIntegrationName: artifactory 
+      formJSONValues:      
+        - label": apikey
+          value": ''
+        - label: url
+          value: ''
+        - label: user
+          value: ''
+      permissions:
+          pipelineSources:
+              allowAllPipelineSources: true
+
+
+  
+  
