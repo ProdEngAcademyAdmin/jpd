@@ -5,8 +5,7 @@ import json
 class Artifactory:
 
     def __init__(self):
-        self.artifactory_data= ConfigParser(file_name='config.yaml',app='artifactory').get_data()
-
+        self.artifactory_data = ConfigParser(file_name='config.yaml',app='artifactory').get_data()
 
     def ping(self):
         """
@@ -47,10 +46,11 @@ class Artifactory:
             key = repo_data["key"]
             api_path = f"artifactory/api/repositories/{key}"
             repo_json = json.dumps(repo_data).encode('utf-8')
+            print(repo_json)
             resp = RESTClient(api_path=api_path, http_method="PUT", data=repo_json).api_call()
             print(resp.text)
 
 if __name__ == '__main__':
-    arti = Artifactory().create_repo()
+    arti = Artifactory().storage_info()
 
 
