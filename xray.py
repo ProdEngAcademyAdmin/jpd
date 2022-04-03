@@ -36,6 +36,3 @@ class Xray:
             resp = RESTClient(api_path=api_path, http_method="POST", data=repo_json).api_call()
             print(resp.text)
 
-
-
-if __name__ == '__main__':
