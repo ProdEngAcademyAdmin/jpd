@@ -1,14 +1,17 @@
 from configParser import ConfigParser
 from RESTClient import RESTClient
 import json
+import click
+
 
 class Artifactory:
 
     def __init__(self):
-        self.artifactory_data= ConfigParser(file_name='config.yaml',app='artifactory').get_data()
+        self.artifactory_data = ConfigParser(file_name='config.yaml', app='artifactory').get_data()
 
-
-    def ping(self):
+    @staticmethod
+    @click.command()
+    def ping():
         """
         input: client
 
@@ -16,24 +19,25 @@ class Artifactory:
                 Returns 200 code with an 'OK' text if Artifactory is working properly, if not will return an HTTP error code with a reason.
         """
         api_path = "artifactory/api/system/ping"
-        resp = RESTClient(api_path=api_path,http_method="GET").api_call()
+        resp = RESTClient(api_path=api_path, http_method="GET").api_call()
         if resp.status_code <= 201:
-            print("Ping Is OK")
+            click.echo("Ping Is OK")
         else:
-            print("Ping is not good")
+            click.echo("Ping is not good")
 
-
-
-    def storage_info(self):
+    @staticmethod
+    @click.command()
+    def storage_info():
         """
         inputs: client
 
         :return: response from JPD , Returns storage summary information regarding binaries, file store and repositories.
         """
         api_path = "artifactory/api/storageinfo"
-        resp = RESTClient(api_path=api_path,http_method="GET").api_call()
-        print(resp.text)
+        resp = RESTClient(api_path=api_path, http_method="GET").api_call()
+        click.echo(resp.text)
 
+    @click.command()
     def create_repo(self):
         """
         :input: client and the data about the repos
@@ -43,14 +47,11 @@ class Artifactory:
         """
         repositories_list = self.artifactory_data["new_repositories"]
         for repository_data_block in repositories_list:
-            repo_data=(next(iter(repository_data_block.values())))
+            repo_data = (next(iter(repository_data_block.values())))
             key = repo_data["key"]
             api_path = f"artifactory/api/repositories/{key}"
             repo_json = json.dumps(repo_data).encode('utf-8')
             resp = RESTClient(api_path=api_path, http_method="PUT", data=repo_json).api_call()
-            print(resp.text)
-
-if __name__ == '__main__':
-    arti = Artifactory().create_repo()
+            click.echo(resp.text)
 
 
