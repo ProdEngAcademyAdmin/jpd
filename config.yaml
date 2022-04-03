@@ -1,0 +1,45 @@
+authentication:
+  user: user@somecompany.com
+  password: TryThisOne
+  url: "pe16366karamj.jfrog.io"
+
+artifactory:
+  new_repositories:
+    - repo1:
+        key: pypi-local-test
+        packageType: pypi
+        rclass: local
+    - repo2:
+        key: docker-local-test
+        packageType: docker
+        rclass: local
+
+xray:
+  policies:
+    - policy1:
+        name: PypiSecurityPolicy
+        type: security
+        description: "Security policy for all PyPi packages"
+        rules:
+            name: securityRule
+            priority: 1
+            criteria:
+              min_severity: High
+    - policy2:
+        name: DockerSecurityPolicy
+        type: security
+        description: "Security policy for all docker images"
+        rules:
+            name: securityRule
+            priority: 1
+            criteria:
+              min_severity: High
+  watches:
+    - watch1:
+      name: PyPi-watch
+      description: "Security watch for all PyPi packages"
+      resources:
+        type: "all-repos"
+        filters:
+          type: "package-type"
+          value: "Docker"
