@@ -12,8 +12,12 @@ class RESTClient:
             fetched_url = ConfigParser(file_name=config_path, app="authentication").get_data()['url']
         except BaseException as err:
             raise err
+        self.app = api_path.split('/')[0]
+        # pipelines app requires all permissions
+        if self.app == "pipelines":
+            self.app = "all"
         self.base_url = fetched_url
-        self.token = Auth().get_token()
+        self.token = Auth().get_token(service=self.app)
         self.api_path = api_path
         self.headers = {'Content-Type': 'application/json',
                         'Authorization': f"Bearer {self.token}"}
@@ -25,12 +29,8 @@ class RESTClient:
                                     url=f"https://{self.base_url}/{self.api_path}",
                                     headers=self.headers,
                                     data=self.data)
-        print(f"https://{self.base_url}/{self.api_path}")
         return response
 
-
-if __name__ == '__main__':
-    print(RESTClient(api_path="artifactory/api/system/ping", http_method="GET").api_call())
 
 
 
