@@ -5,7 +5,7 @@ from cryptography.fernet import Fernet
 class Auth:
     def __init__(self):
         self.token = None
-        config = ConfigParser("../../config.yaml", "authentication").get_data()
+        config = ConfigParser("config.yaml", "authentication").get_data()
         self.user = config['user']
         self.password = config['password']
         self.base_url = config['url']
