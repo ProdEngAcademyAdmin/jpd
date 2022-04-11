@@ -1,5 +1,5 @@
 import click
-from modules.artifactory import Artifactory
+from src.modules.artifactory import Artifactory
 
 
 @click.group()

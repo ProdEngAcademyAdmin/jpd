@@ -1,11 +1,11 @@
 import requests, json
-from configParser import ConfigParser
+from src.utils.configParser import ConfigParser
 from cryptography.fernet import Fernet
 
 class Auth:
     def __init__(self):
         self.token = None
-        config = ConfigParser("config.yaml","authentication").get_data()
+        config = ConfigParser("../../config.yaml", "authentication").get_data()
         self.user = config['user']
         self.password = config['password']
         self.base_url = config['url']
@@ -38,6 +38,6 @@ class Auth:
         decrypted_token = encryption_type.decrypt(self.token)
         return decrypted_token.decode('utf-8')
 
-if __name__ == '__main__':
-    t = Auth().get_token(service='xray')
-    print(t)
+# if __name__ == '__main__':
+#     t = Auth().get_token(service='xray')
+#     print(t)

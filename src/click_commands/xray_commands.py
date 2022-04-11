@@ -1,5 +1,5 @@
 import click
-from modules.xray import Xray
+from src.modules.xray import Xray
 
 
 @click.group()
