@@ -7,7 +7,7 @@ class RESTClient:
 
     def __init__(self, api_path, http_method, data={}, config_path=None):
         if config_path is None:
-            config_path = "../../config.yaml"
+            config_path = "config.yaml"
         try:
             fetched_url = ConfigParser(file_name=config_path, app="authentication").get_data()['url']
         except BaseException as err:
