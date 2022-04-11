@@ -5,11 +5,16 @@ import click
 import os
 
 
+app_name = os.path.basename(__file__).split('.')[0].lower()
+artifactory_data = ConfigParser(file_name='config.yaml', app=app_name).get_data()
+
+
 class Artifactory:
 
     def __init__(self):
-        self.app_name = os.path.basename(__file__).split('.')[0].lower()
-        self.artifactory_data = ConfigParser(file_name='config.yaml', app=self.app_name).get_data()
+        pass
+        # self.app_name = os.path.basename(__file__).split('.')[0].lower()
+        # self.artifactory_data = ConfigParser(file_name='config.yaml', app=self.app_name).get_data()
 
     @staticmethod
     @click.command()
@@ -39,15 +44,16 @@ class Artifactory:
         resp = RESTClient(api_path=api_path, http_method="GET").api_call()
         click.echo(resp.text)
 
+    @staticmethod
     @click.command()
-    def create_repo(self):
+    def create_repo():
         """
         :input: client and the data about the repos
 
         :return: Creates a new repository in Artifactory with the provided configuration.
          Supported by local, remote, virtual and federated repositories.
         """
-        repositories_list = self.artifactory_data["new_repositories"]
+        repositories_list = artifactory_data["new_repositories"]
         for repository_data_block in repositories_list:
             repo_data = (next(iter(repository_data_block.values())))
             key = repo_data["key"]
