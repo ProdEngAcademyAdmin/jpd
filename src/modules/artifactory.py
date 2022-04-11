@@ -1,5 +1,5 @@
-from configParser import ConfigParser
-from RESTClient import RESTClient
+from src.utils.configParser import ConfigParser
+from src.utils.RESTClient import RESTClient
 import json
 import click
 import os
