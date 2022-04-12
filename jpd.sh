@@ -7,7 +7,7 @@ fi
 cp ./config.yaml ~/jpd/
 
 
-for commandname in python3 pip virtualenv pip3 
+for commandname in python3 virtualenv pip3 
 do
 if ! command -v $commandname &> /dev/null
 then
@@ -41,9 +41,10 @@ fi
 
 jpd
 
-
 cat <<INSTRUCTIONS
 
 Please fill the details in the config.yaml file under ~/jpd/ folder
+
+Please run the following command  $ source jpd/venv-jpd/bin/activate
 
 INSTRUCTIONS
