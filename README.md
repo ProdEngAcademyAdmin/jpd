@@ -14,19 +14,34 @@ The JPD CLI job is to Create actual usage in the JFrog platform within seconds w
 - Pipelines: https://www.jfrog.com/confluence/display/JFROG/Pipelines+REST+API
 - Authentication : https://www.jfrog.com/confluence/display/RTF6X/Artifactory+REST+API#ArtifactoryRESTAPI-Authentication
 ## Examples for ‘JPD’ commands
-The JPD cli implement JFrog platform and API-calls:
-Artifactory:
--System Ping $ jpd rt ping
--Get Storage Info  $ jpd rt storage-info  
--Create Repository $ jpd rt create-repo 
-Xray:
--create watch $ jpd xray create-watch 
--Create policy $ jpd xray create-policy
-Pipelines:
--Create Integrations
--Create Pipeline Source
--Trigger a Pipeline
--Report Pipelines status
+The JPD cli implement JFrog platform and API-calls: <br />
+Artifactory: <br />
+ -System Ping 
+ ``` sh
+$ jpd rt ping 
+````
+ -Get Storage Info
+ ``` sh
+$ jpd xray storage-info
+````
+ -Create Repository
+ ``` sh
+$ jpd rt create-repo
+````
+Xray: <br />
+-create watch
+``` sh
+$ jpd xray create-watch 
+````
+-Create policy
+``` sh
+$ jpd xray create-policy 
+````
+Pipelines: <br />
+-Create Integrations<br />
+-Create Pipeline Source<br />
+-Trigger a Pipeline<br />
+-Report Pipelines status<br />
 
 ```commandline
 Usage: jpd [OPTIONS] COMMAND [ARGS]...
@@ -41,4 +56,4 @@ Commands:
   ```
  
  ## Diagram of the application
- ![Architecture of the JPD CLI](https://github.com/ProdEngAcademyAdmin/jpd/Media/JPD-Diagram.png?raw=true)
+ ![Architecture of the JPD CLI](https://github.com/ProdEngAcademyAdmin/jpd/blob/main/Media/JPD-Diagram.png?raw=true)
