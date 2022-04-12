@@ -16,13 +16,12 @@ The JPD CLI job is to Create actual usage in the JFrog platform within seconds w
 ## Examples for ‘JPD’ commands
 The JPD cli implement JFrog platform and API-calls:
 Artifactory:
--System Ping
--Get Storage Info
--Create Repository
+-System Ping $ jpd rt ping
+-Get Storage Info  $ jpd rt storage-info  
+-Create Repository $ jpd rt create-repo 
 Xray:
--Generate report
--Create policy and watch
--Check if the artifact is scanned and safe
+-create watch $ jpd xray create-watch 
+-Create policy $ jpd xray create-policy
 Pipelines:
 -Create Integrations
 -Create Pipeline Source
