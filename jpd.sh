@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-
-
 git clone https://github.com/ProdEngAcademyAdmin/jpd.git
 cd jpd
 if [ ! -d ~/jpd/ ]; then
@@ -9,7 +7,7 @@ fi
 cp ./config.yaml ~/jpd/
 
 
-for commandname in python3 pip virtualenv
+for commandname in python3 pip virtualenv pip3 
 do
 if ! command -v $commandname &> /dev/null
 then
@@ -18,6 +16,12 @@ then
     exit 1 
 fi
 done 
+
+if [ -f /usr/local/bin/jpd ]; then
+
+    echo "I found that you have jpd binary under /usr/local/bin/, I'm backing it up "
+    mv /usr/local/bin/jpd /usr/local/bin/jpdbackup
+fi 
 
 if [ -d "/venv-jpd" ]; then
   # Virtualenv Exists
@@ -34,5 +38,12 @@ else
   python3 setup.py develop
 fi
 
-echo "Please fill the details in the config.yaml file in ~/jpd/ folder"
-echo "to run the cli write jpd"
+
+jpd
+
+
+cat <<INSTRUCTIONS
+
+Please fill the details in the config.yaml file under ~/jpd/ folder
+
+INSTRUCTIONS
