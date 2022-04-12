@@ -76,3 +76,40 @@ xray:
         assigned_policies:
           - name: karam_policy
             type: security
+
+pipeline:
+  source:
+    projectId: 1
+    projectIntegrationId:
+    repositoryFullName: "myrepo/docker-sample"
+    branch: master
+    fileFilter: pipelines.yml
+
+  integrations:
+    - Name: MyGithub
+      projectId: 1
+      masterIntegrationId: 20
+      masterIntegrationName: github
+      formJSONValues:
+        - label: gittoken
+          value: ''
+        - label: url
+          value: "https://api.github.com"
+      permissions:
+        pipelineSources:
+          allowAllPipelineSources: true
+
+    - Name: MyArtifactory
+      projectId: 1
+      masterIntegrationId: 98
+      masterIntegrationName: artifactory
+      formJSONValues:
+        - label: apikey
+          value: ''
+        - label: url
+          value: '--insert--'
+        - label: user
+          value: '--insert--'
+      permissions:
+        pipelineSources:
+          allowAllPipelineSources: true
