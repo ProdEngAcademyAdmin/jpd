@@ -4,8 +4,16 @@ cd jpd
 if [ ! -d ~/jpd/ ]; then
   mkdir ~/jpd
 fi 
-cp ./config.yaml ~/jpd/
 
+if [ -f ~/jpd/config.yaml ]; then
+
+    timestamp=`(date -j +%Y-%m-%d-%H-%M-%S)`
+    echo "I found that you have config file,I'm backing it up,if you want to use it copy the context to the new config.yaml file "
+    mv ~/jpd/config.yaml ~/jpd/configbackup-${timestamp}.yaml
+    cp ./config.yaml ~/jpd/
+else 
+  cp ./config.yaml ~/jpd/
+fi
 
 for commandname in python3 virtualenv pip3 
 do
@@ -47,6 +55,5 @@ Please fill the details in the config.yaml file under ~/jpd/ folder
 
 
 Please run the following command  $ source jpd/venv-jpd/bin/activate
-
 
 INSTRUCTIONS
