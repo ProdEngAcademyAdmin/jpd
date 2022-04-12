@@ -45,6 +45,8 @@ cat <<INSTRUCTIONS
 
 Please fill the details in the config.yaml file under ~/jpd/ folder
 
+
 Please run the following command  $ source jpd/venv-jpd/bin/activate
+
 
 INSTRUCTIONS
