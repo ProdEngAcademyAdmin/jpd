@@ -9,7 +9,7 @@ if [ -f ~/jpd/config.yaml ]; then
 
     timestamp=`(date -j +%Y-%m-%d-%H-%M-%S)`
     echo "I found that you have config file,I'm backing it up,if you want to use it copy the context to the new config.yaml file "
-    mv ~/jpd/config.yaml ~/jpd/configbackup-${timestamp}.yaml
+    cp ~/jpd/config.yaml ~/jpd/configbackup-${timestamp}.yaml
     cp ./config.yaml ~/jpd/
 else 
   cp ./config.yaml ~/jpd/
