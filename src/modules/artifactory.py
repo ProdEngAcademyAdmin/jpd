@@ -62,4 +62,3 @@ class Artifactory:
             resp = RESTClient(api_path=api_path, http_method="PUT", data=repo_json).api_call()
             click.echo(resp.text)
 
-
